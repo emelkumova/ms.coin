@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,9 +16,8 @@
       height: 100vh;
       background-color: #f9f9f9;
     }
-
-    /* Стиль окна регистрации */
-    #registration-window, #main-window {
+       /* Стиль окна регистрации */
+       #registration-window, #main-window, #instruction-window {
       display: none;
       width: 400px;
       border: 6px solid red;
@@ -29,23 +28,40 @@
       position: relative;
     }
 
-    /* Верхняя рамка с логотипом */
-    .header {
-      width: 102%;
-      height: 80px;
-      background-color: red;
-      border-radius: 20px 20px 0 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: absolute;
-      top: -6px;
-      left: -6px;
-      right: -6px;
-    }
+ /* Верхняя рамка с логотипом */
+ .header {
+  width: 102%; /* Изменить */
+  height: 80px;
+  background-color: red;
+  border-radius: 20px 20px 0 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: -6px;
+  left: -6px;
+  right: -6px;
+}
 
+
+
+#main-window {
+  position: relative;
+}
+
+    
     .header img {
       max-height: 50px;
+    }
+
+    /* Кнопка "Назад" */
+    .back-button {
+      position: absolute;
+      left: 15px;
+      color: white;
+      font-size: 16px;
+      text-decoration: none;
+      cursor: pointer;
     }
 
     /* Приветственное сообщение и баланс */
@@ -60,10 +76,12 @@
       text-align: center;
       font-size: 24px;
       margin-top: 20px;
-      color: green;
+      color: rgb(0, 0, 0);
     }
 
-    /* Кнопка для инструкции */
+
+
+    /* Кнопки */
     .button {
       width: 100%;
       padding: 10px;
@@ -80,9 +98,21 @@
       background-color: darkred;
     }
 
-    /* Стиль основного окна */
-    #main-window .content {
+
+      /* Стиль основного окна */
+      #main-window .content {
       padding: 20px;
+    }
+
+    /* Поля ввода */
+    .input-field {
+      width: 100%;
+      padding: 8px 12px;
+      margin: 10px 0;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 16px;
+      box-sizing: border-box;
     }
 
     /* Сообщение об ошибке */
@@ -92,41 +122,6 @@
       text-align: center;
       margin-top: 10px;
     }
-
-    /* Скрытый текст инструкции */
-    #instruction-text {
-      display: none;
-      margin-top: 20px;
-      text-align: center;
-      font-size: 16px;
-      color: #555;
-    }
-
-    /* Стиль полей ввода и кнопки в окне регистрации */
-    .input-field {
-      width: 100%;
-      padding: 8px 12px; /* Меньше padding, чтобы не было заделки рамки */
-      margin: 10px 0;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-      font-size: 16px;
-      box-sizing: border-box; /* Чтобы padding не выходил за пределы */
-    }
-
-    .button {
-      width: 100%;
-      padding: 10px;
-      background-color: red;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-
-    .button:hover {
-      background-color: darkred;
-    }
   </style>
 </head>
 <body>
@@ -134,7 +129,9 @@
   <!-- Окно регистрации -->
   <div id="registration-window">
     <div class="header">
-      <img src="логотип.png" alt="MScoin Logo">
+      <div class="logo">
+        <img src="логотип.png" alt="MScoin Logo">
+      </div>
     </div>
     <h3 style="text-align: center;">Войти</h3>
     <input type="text" id="full-name" class="input-field" placeholder="ФИО">
@@ -148,103 +145,131 @@
     <div class="header">
       <img src="логотип.png" alt="MScoin Logo">
     </div>
-    <div class="welcome-message" id="welcome-message">
-     <span id="user-name">Имя</span>
-    </div>
+    <p><div class="welcome-message" id="welcome-message">
+      <span id="user-name">Имя</span>
+     </div></p>
+    
     <div class="balance" id="user-balance">
       Баланс: 0 коинов
     </div>
 
-    <!-- Кнопка для инструкции -->
-    <button class="button" onclick="toggleInstruction()">Инструкция по списанию</button>
+    
+   <!-- Кнопка для инструкции -->
+   <button class="button" onclick="showInstructionWindow()">Инструкция по списанию</button>
+  </div>
 
-   <!-- Скрытый текст инструкции -->
-<div id="instruction-text">
-  <br><br>С сегодняшнего дня вы можете списать заработанные MS_Coin:
-  <ol>
-    <li>Вам необходимо сделать чек на ТТ и добавить товар на который вы хотите применить MS_Coin и кинуть его в отложку.</li>
-    <li>Поставить задачу на Данил Коваль и в наблюдатели своего РД.</li>
-    <li>В задаче требуется указать ТТ и номер отложенного чека и написать сколько MS_Coin вы хотите применить.</li>
-    <li>Данил Коваль применяет скидку согласно написанному в задаче и сообщает так же в задаче, что в чеке применена скидка.</li>
-    <li>Сотрудник вытаскивает чек из отложки проводит чек и если требуется доплата - доплачивает и проводит чек.</li>
-    <li>Информацию об остатках MS_Coin вам может предоставить РД.</li>
-  </ol>
-</div>
 
+  <!-- Окно с инструкцией -->
+  <div id="instruction-window">
+    <div class="header">
+      <a href="#" class="back-button" onclick="backToMainWindow()">← </a>
+      <div class="logo">
+        <img src="логотип.png" alt="MScoin Logo">
+      </div>
+    </div>
+    <div class="title"> 
+      <div style="text-align: center; font-size: 22px; font-weight: bold; margin-top: 80px;">
+        Спасибо за твою работу!
+      </div>
+    </div>
+    <div style="margin-top: 20px; text-align: center;">
+      Ты очень хорошо потрудился, и твой бонус уже ждет тебя! Напоминаем, ты можешь списывать бонусы, как целиком, так и частями, а так же копить бонусы на более дорогую покупку.
+    </div>
+      <h3>Инструкция по списанию твоих MS_Coin:</h3>
+      <ol>
+        <li>Вам необходимо сделать чек на ТТ и добавить товар, на который вы хотите применить MS_Coin, и кинуть его в отложку.</li>
+        <li>Поставить задачу на Данил Коваль и в наблюдатели своего РД.</li>
+        <li>В задаче требуется указать ТТ и номер отложенного чека и написать, сколько MS_Coin вы хотите применить.</li>
+        <li>Данил Коваль применяет скидку согласно написанному в задаче и сообщает также в задаче, что в чеке применена скидка.</li>
+        <li>Сотрудник вытаскивает чек из отложки, проводит чек и, если требуется доплата, доплачивает и проводит чек.</li>
+        <li>Остаток заработанных бонусов после списания обновится на следующий рабочий день.</li>
+        <li>Списывать бонусы можно на любой товар или услугу в твоем магазине.</li>
+        <li>При выявлении махинаций сумма потерь компании будет взыскана с виновных сотрудников.</li>
+      </ol>
+    </div>
+  </div>
 
   <script>
     const SHEET_ID = "1ES6xHcG31myxQopkVd6OXN2mos8LKGICMjxFFrk4QLg";
-const API_KEY = "AIzaSyCSI8g410eEQK2pwke430On4aEvejWGyc4";
+    const API_KEY = "AIzaSyCSI8g410eEQK2pwke430On4aEvejWGyc4";
 
-// Функция для входа
-function login() {
-  const fullName = document.getElementById("full-name").value.trim();
-  const phoneNumber = document.getElementById("phone-number").value.trim();
-  const errorMessage = document.getElementById("error-message");
+    // Функция для входа
+    function login() {
+      const fullName = document.getElementById("full-name").value.trim();
+      const phoneNumber = document.getElementById("phone-number").value.trim();
+      const errorMessage = document.getElementById("error-message");
 
-  errorMessage.textContent = ""; // Очистить сообщение об ошибке
+      errorMessage.textContent = ""; // Очистить сообщение об ошибке
 
-  if (!fullName || !phoneNumber) {
-    errorMessage.textContent = "Пожалуйста, заполните все поля.";
-    return;
-  }
-
-  // Логируем ввод пользователя
-  console.log("Введенные данные:", { fullName, phoneNumber });
-
-  fetch(`https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/ms.coin?key=${API_KEY}`)
-    .then(response => {
-      if (!response.ok) {
-        console.error("Ошибка при запросе к API:", response.status, response.statusText);
-        throw new Error(`Ошибка HTTP: ${response.status}`);
-      }
-      return response.json();
-    })
-    .then(data => {
-      console.log("Данные из таблицы:", data);
-
-      if (!data.values || data.values.length === 0) {
-        console.error("Ошибка: таблица пуста или данные отсутствуют.");
-        errorMessage.textContent = "Ошибка: таблица пуста или данные отсутствуют.";
+      if (!fullName || !phoneNumber) {
+        errorMessage.textContent = "Пожалуйста, заполните все поля.";
         return;
       }
 
-      const rows = data.values;
-      const user = rows.find(row => row[0] === fullName && row[2] === phoneNumber);
+      // Логируем ввод пользователя
+      console.log("Введенные данные:", { fullName, phoneNumber });
 
-      if (user) {
-        console.log("Найден пользователь:", user);
-        showMainWindow(user[0], user[1]);
-      } else {
-        console.error("Пользователь не найден.");
-        errorMessage.textContent = "К сожалению, ваших данных нет у нас. Обратитесь к руководителю.";
-      }
-    })
-    .catch(error => {
-      console.error("Ошибка при запросе к Google Sheets API:", error);
-      errorMessage.textContent = "Произошла ошибка. Попробуйте позже.";
-    });
-}
+      fetch(`https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/ms.coin?key=${API_KEY}`)
+        .then(response => {
+          if (!response.ok) {
+            console.error("Ошибка при запросе к API:", response.status, response.statusText);
+            throw new Error(`Ошибка HTTP: ${response.status}`);
+          }
+          return response.json();
+        })
+        .then(data => {
+          console.log("Данные из таблицы:", data);
 
-// Показать основное окно с данными пользователя
-function showMainWindow(fullName, balance) {
-  document.getElementById("registration-window").style.display = "none";
-  document.getElementById("main-window").style.display = "block";
+          if (!data.values || data.values.length === 0) {
+            console.error("Ошибка: таблица пуста или данные отсутствуют.");
+            errorMessage.textContent = "Ошибка: таблица пуста или данные отсутствуют.";
+            return;
+          }
 
-  document.getElementById("user-name").textContent = fullName;
-  document.getElementById("user-balance").textContent = `Баланс: ${balance}`;
-}
+          const rows = data.values;
+          const user = rows.find(row => row[0] === fullName && row[2] === phoneNumber);
 
-// Показать/скрыть инструкцию
-function toggleInstruction() {
-  const instructionText = document.getElementById("instruction-text");
-  instructionText.style.display = instructionText.style.display === "none" ? "block" : "none";
-}
+          if (user) {
+            console.log("Найден пользователь:", user);
+            showMainWindow(user[0], user[1]);
+          } else {
+            console.error("Пользователь не найден.");
+            errorMessage.textContent = "К сожалению, ваших данных нет у нас. Обратитесь к руководителю.";
+          }
+        })
+        .catch(error => {
+          console.error("Ошибка при запросе к Google Sheets API:", error);
+          errorMessage.textContent = "Произошла ошибка. Попробуйте позже.";
+        });
+    }
 
-// Показать окно регистрации при загрузке
-document.getElementById("registration-window").style.display = "block";
+    // Показать основное окно с данными пользователя
+    function showMainWindow(fullName, balance) {
+      document.getElementById("registration-window").style.display = "none";
+      document.getElementById("main-window").style.display = "block";
 
+      document.getElementById("user-name").textContent = fullName;
+      document.getElementById("user-balance").textContent = `Баланс: ${balance}`;
+    }
+
+    // Показать окно с инструкцией
+    function showInstructionWindow() {
+      document.getElementById("main-window").style.display = "none";
+      document.getElementById("instruction-window").style.display = "block";
+    }
+
+    // Вернуться в основное окно
+    function backToMainWindow() {
+      document.getElementById("instruction-window").style.display = "none";
+      document.getElementById("main-window").style.display = "block";
+    }
+
+    // Показать окно регистрации при загрузке
+    document.getElementById("registration-window").style.display = "block";
   </script>
+
+</body>
+</html>
 
 </body>
 </html>
